@@ -12,6 +12,7 @@
 1. 休息界面：
 
 ![img_2.png](img_2.png)
+
 2. 菜单栏界面：
 
 ![img_1.png](img_1.png)
