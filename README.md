@@ -22,7 +22,7 @@
 ![img.png](jpeg/img.png)
 
 ## 启动
-./dist/MacEyeGuard.zip   解压缩后，直接双击打开即可。
+下载：MacEyeGuard.zip   解压缩后，直接双击打开即可。
 
 ## 可配置项
 在菜单栏中打开 `设置`：
