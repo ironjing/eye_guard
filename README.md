@@ -17,7 +17,7 @@
 
 ![img_1.png](jpeg/img_1.png)
 
-4. 设置界面：
+3.设置界面：
 
 ![img.png](jpeg/img.png)
 
