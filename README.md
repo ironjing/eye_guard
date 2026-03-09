@@ -30,3 +30,36 @@
 - 短休时长（秒）
 - 长休时长（分钟）
 - 每隔几次进入长休
+
+## English Introduction
+
+A small macOS eye-care app. Also known as: Eye Nurse / Eye Guard / Eye Care Timer.
+
+Default rules:
+- Work 20 minutes
+- Rest 20 seconds
+- Every 3 short breaks, take a 5-minute long break
+
+During the rest period, a black mask is shown on all screens, displaying a countdown and a `Rested` button.
+
+1. Break screen:
+
+![img_2.png](jpeg/img_2.png)
+
+2. Menu bar:
+
+![img_1.png](jpeg/img_1.png)
+
+3. Settings screen:
+
+![img.png](jpeg/img.png)
+
+## Launch
+Download: `MacEyeGuard.zip`. Unzip it and double-click to open.
+
+## Configurable Options
+Open `Settings` from the menu bar:
+- Work duration (minutes)
+- Short break duration (seconds)
+- Long break duration (minutes)
+- Number of short breaks before a long break
