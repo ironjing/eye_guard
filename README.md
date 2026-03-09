@@ -11,15 +11,15 @@
 
 1. 休息界面：
 
-![img_2.png](img_2.png)
+![img_2.png](jpeg/img_2.png)
 
 2. 菜单栏界面：
 
-![img_1.png](img_1.png)
+![img_1.png](jpeg/img_1.png)
 
 4. 设置界面：
 
-![img.png](img.png)
+![img.png](jpeg/img.png)
 
 ## 启动
 ./dist/MacEyeGuard.zip   解压缩后，直接双击打开即可。
