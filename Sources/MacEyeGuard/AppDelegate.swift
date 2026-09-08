@@ -4,6 +4,10 @@ import SwiftUI
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    private static let menuBarFont = NSFont.monospacedDigitSystemFont(
+        ofSize: NSFont.menuBarFont(ofSize: 0).pointSize, weight: .regular
+    )
+
     private let timerManager = EyeCareTimerManager()
     private var statusItem: NSStatusItem?
     private let statusMenu = NSMenu()
@@ -23,9 +27,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = item.button {
-            button.image = NSImage(systemSymbolName: "eye", accessibilityDescription: "Eye Guard")
-            button.imagePosition = .imageLeft
-            button.title = timerManager.menuBarCountdownText
+            button.image = nil
+            button.imagePosition = .noImage
+            button.font = Self.menuBarFont
+            updateMenuBarCountdown(on: button)
             button.toolTip = "Eye Guard"
         }
         item.menu = statusMenu
@@ -101,7 +106,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func refreshUI() {
         if let button = statusItem?.button {
-            button.title = timerManager.menuBarCountdownText
+            updateMenuBarCountdown(on: button)
         }
 
         guard let startPauseItem else { return }
@@ -112,6 +117,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             startPauseItem.title = "开始"
             startPauseItem.image = NSImage(systemSymbolName: "play.circle", accessibilityDescription: nil)
         }
+    }
+
+    private func updateMenuBarCountdown(on button: NSStatusBarButton) {
+        let countdown = timerManager.menuBarCountdownText
+        button.title = countdown
+        button.setAccessibilityLabel("Eye Guard，倒计时 \(countdown)")
     }
 
     @objc private func toggleStartPause() {

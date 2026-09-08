@@ -126,7 +126,7 @@ final class EyeCareTimerManager: ObservableObject {
 
     var menuBarCountdownText: String {
         let workSeconds = phase == .working ? remainingSeconds : settings.safeWorkSeconds
-        return "工 \(Self.format(seconds: workSeconds))"
+        return Self.format(seconds: workSeconds)
     }
 
     static func format(seconds: Int) -> String {
