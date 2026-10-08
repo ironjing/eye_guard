@@ -31,6 +31,8 @@
 - 长休时长（分钟）
 - 每隔几次进入长休
 
+菜单栏中还可以勾选 `开机自动启动`（需要 macOS 13 及以上，建议先把 app 放到“应用程序”文件夹）。
+
 ## English Introduction
 
 A small macOS eye-care app. Also known as: Eye Nurse / Eye Guard / Eye Care Timer.
@@ -63,3 +65,5 @@ Open `Settings` from the menu bar:
 - Short break duration (seconds)
 - Long break duration (minutes)
 - Number of short breaks before a long break
+
+The menu bar also has a `开机自动启动` (launch at login) toggle (macOS 13+; move the app to the Applications folder first).

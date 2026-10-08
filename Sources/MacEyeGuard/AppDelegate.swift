@@ -1,9 +1,10 @@
 import AppKit
 import Combine
+import ServiceManagement
 import SwiftUI
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private static let menuBarFont = NSFont.monospacedDigitSystemFont(
         ofSize: NSFont.menuBarFont(ofSize: 0).pointSize, weight: .regular
     )
@@ -15,6 +16,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables = Set<AnyCancellable>()
 
     private var startPauseItem: NSMenuItem?
+    private var launchAtLoginItem: NSMenuItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -33,6 +35,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             updateMenuBarCountdown(on: button)
             button.toolTip = "Eye Guard"
         }
+        statusMenu.delegate = self
         item.menu = statusMenu
         statusItem = item
     }
@@ -76,6 +79,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         settings.target = self
         settings.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: nil)
         statusMenu.addItem(settings)
+
+        if #available(macOS 13.0, *) {
+            let launchAtLogin = NSMenuItem(
+                title: "开机自动启动",
+                action: #selector(toggleLaunchAtLogin),
+                keyEquivalent: ""
+            )
+            launchAtLogin.target = self
+            launchAtLogin.image = NSImage(systemSymbolName: "power", accessibilityDescription: nil)
+            launchAtLoginItem = launchAtLogin
+            statusMenu.addItem(launchAtLogin)
+        }
 
         statusMenu.addItem(.separator())
 
@@ -159,6 +174,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         settingsWindow?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    func menuWillOpen(_ menu: NSMenu) {
+        if #available(macOS 13.0, *) {
+            launchAtLoginItem?.state = SMAppService.mainApp.status == .enabled ? .on : .off
+        }
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        guard #available(macOS 13.0, *) else { return }
+        let service = SMAppService.mainApp
+        do {
+            if service.status == .enabled {
+                try service.unregister()
+            } else {
+                try service.register()
+            }
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "无法设置开机自动启动"
+            alert.informativeText = error.localizedDescription
+            alert.runModal()
+        }
     }
 
     @objc private func quitApp() {
